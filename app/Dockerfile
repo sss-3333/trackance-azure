@@ -9,7 +9,7 @@ RUN npm install --omit=dev
 COPY app/ ./
 
 # ---- Runtime stage ----
-FROM gcr.io/distroless/nodejs20-debian12 AS runtime
+FROM gcr.io/distroless/nodejs20-debian12:nonroot AS runtime
 
 WORKDIR /app
 
