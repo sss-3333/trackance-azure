@@ -32,7 +32,7 @@ jobs:
         run: az acr login --name $ACR_NAME
 
       - name: Build image
-        run: docker build -f app/Dockerfile -t $ACR_NAME.azurecr.io/trackance:latest .
+        run: docker build -f app/Dockerfile -t $ACR_NAME.azurecr.io/trackance:${{ github.sha }} .
 
       - name: Push image
-        run: docker push $ACR_NAME.azurecr.io/trackance:latest
+        run: docker push $ACR_NAME.azurecr.io/trackance:${{ github.sha }}
