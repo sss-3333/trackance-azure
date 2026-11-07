@@ -21,3 +21,7 @@ variable "location" {
 variable "acr_id" {
   type = string
 }
+
+variable "acr_login_server" {
+  type = string
+}

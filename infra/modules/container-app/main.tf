@@ -22,6 +22,13 @@ resource "azurerm_container_app" "this" {
     identity_ids = [azurerm_user_assigned_identity.this.id]
   }
 
+    registry {
+    server   = var.acr_login_server
+    identity = azurerm_user_assigned_identity.this.id
+  }
+
+  depends_on = [azurerm_role_assignment.acr_pull]
+
   template {
     container {
       name   = "trackance"
