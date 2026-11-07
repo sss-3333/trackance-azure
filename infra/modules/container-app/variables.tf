@@ -13,3 +13,8 @@ variable "container_app_environment_id" {
 variable "image" {
   type = string
 }
+
+variable "location" {
+  type = string
+}
+
