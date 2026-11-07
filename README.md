@@ -7,7 +7,7 @@ HTTPS through Azure Front Door at tm.trackance.co.uk.
 
 ## Live App
 
-![alt text](image.png)
+![alt text](/clickops/screenshots/image.png)
 
 ### Project Overview
 
@@ -22,29 +22,7 @@ HTTPS through Azure Front Door at tm.trackance.co.uk.
 
 ## Architecture Diagram
 
-```mermaid
-flowchart LR
-    user[User] -->|tm.trackance.co.uk| r53[Route 53 CNAME]
-    r53 --> afd[Azure Front Door<br/>managed certificate]
-    afd -->|HTTPS| ca
-
-    subgraph app[rg-trackance-app]
-        ca[Container App<br/>port 3000]
-        cae[Container Apps environment]
-        log[Log Analytics]
-    end
-
-    subgraph boot[rg-trackance-bootstrap]
-        acr[Container Registry]
-        st[Storage account<br/>Terraform state]
-        id[GitHub identity]
-    end
-
-    ca -.->|pull image, AcrPull| acr
-    gh[GitHub Actions] -->|OIDC| id
-    gh -->|push image| acr
-    gh -->|OIDC| iam[AWS IAM role] --> r53
-```
+![alt text](/clickops/screenshots/trackance-azure-architecture.png)
 
 ## Project Structure
 
@@ -112,20 +90,17 @@ Press `Ctrl+C`.
 
 ### Build: builds the image, checks it responds, then pushes it to ACR tagged with the commit SHA
 
-![alt text](image-3.png)
+![alt text](/clickops/screenshots/image-3.png)
 
 ### Terraform Plan: runs fmt, validate and plan on pushes that change `infra/`
 
-![alt text](image-4.png)
+![alt text](/clickops/screenshots/image-4.png)
 
 
 ### Terraform Apply: manual, deploys a chosen image tag
 
-![alt text](image-5.png)
+![alt text](/clickops/screenshots/image-5.png)
 
-### Terraform Destroy: manual teardown of the app layer
-
-<!-- screenshot -->
 
 ### Deployment Workflow
 
@@ -133,3 +108,8 @@ Press `Ctrl+C`.
 2. A push that changes `infra/` runs fmt, validate and plan
 3. I review the plan, then run Terraform Apply with the image tag to deploy
 4. Container Apps starts a new revision with the new image and moves traffic to it
+
+
+## Azure Resources
+
+![alt text](/clickops/screenshots/image-6.png)
