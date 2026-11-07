@@ -37,7 +37,7 @@ resource "azurerm_federated_identity_credential" "github_main" {
   user_assigned_identity_id = azurerm_user_assigned_identity.github.id
   issuer                    = "https://token.actions.githubusercontent.com"
   audience                  = ["api://AzureADTokenExchange"]
-  subject                   = "repo:sss-3333/trackance-azure:ref:refs/heads/main"
+  subject                   = "repo:sss-3333@120253226/trackance-azure@1435149656:ref:refs/heads/main"
 }
 
 data "azurerm_subscription" "current" {}

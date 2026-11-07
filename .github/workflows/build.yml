@@ -36,5 +36,3 @@ jobs:
 
       - name: Push image
         run: docker push $ACR_NAME.azurecr.io/trackance:latest
-
-#
