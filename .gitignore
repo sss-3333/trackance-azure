@@ -2,5 +2,8 @@ node_modules/
 .env
 .terraform/
 *.tfstate
-*.tfstate.backup
-.terraform.lock.hcl
+*.tfstate.*
+*.tfplan
+crash.log
+*.tfvars
+!example.tfvars
