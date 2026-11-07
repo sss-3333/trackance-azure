@@ -27,6 +27,16 @@ resource "azurerm_container_app" "this" {
     identity = azurerm_user_assigned_identity.this.id
   }
 
+    ingress {
+    external_enabled = true
+    target_port      = 3000
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
+  }
+
   depends_on = [azurerm_role_assignment.acr_pull]
 
   template {
