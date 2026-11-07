@@ -53,3 +53,11 @@ resource "aws_route53_record" "dnsauth" {
   ttl     = 300
   records = [module.front_door.custom_domain_validation_token]
 }
+
+resource "aws_route53_record" "app" {
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = var.custom_domain
+  type    = "CNAME"
+  ttl     = 300
+  records = [module.front_door.endpoint_host_name]
+}
