@@ -117,3 +117,35 @@ resource "aws_iam_role" "github_route53" {
   name               = "trackance-azure-github-route53"
   assume_role_policy = data.aws_iam_policy_document.github_trust.json
 }
+
+data "aws_route53_zone" "this" {
+  name = "trackance.co.uk"
+}
+
+data "aws_iam_policy_document" "route53" {
+  statement {
+    actions   = ["route53:ListHostedZones"]
+    resources = ["*"]
+  }
+
+  statement {
+    actions   = ["route53:GetChange"]
+    resources = ["arn:aws:route53:::change/*"]
+  }
+
+  statement {
+    actions = [
+      "route53:GetHostedZone",
+      "route53:ListTagsForResource",
+      "route53:ListResourceRecordSets",
+      "route53:ChangeResourceRecordSets",
+    ]
+    resources = [data.aws_route53_zone.this.arn]
+  }
+}
+
+resource "aws_iam_role_policy" "github_route53" {
+  name   = "route53-records"
+  role   = aws_iam_role.github_route53.id
+  policy = data.aws_iam_policy_document.route53.json
+}
