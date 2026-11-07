@@ -23,12 +23,12 @@ resource "azurerm_container_app" "this" {
     identity_ids = [azurerm_user_assigned_identity.this.id]
   }
 
-    registry {
+  registry {
     server   = var.acr_login_server
     identity = azurerm_user_assigned_identity.this.id
   }
 
-    ingress {
+  ingress {
     external_enabled = true
     target_port      = 3000
 

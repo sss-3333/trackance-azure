@@ -26,16 +26,16 @@ resource "azurerm_cdn_frontdoor_origin" "this" {
 }
 
 resource "azurerm_cdn_frontdoor_route" "this" {
-  name                          = "${var.name}-route"
-  cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.this.id
-  cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.this.id
-  cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.this.id]
+  name                            = "${var.name}-route"
+  cdn_frontdoor_endpoint_id       = azurerm_cdn_frontdoor_endpoint.this.id
+  cdn_frontdoor_origin_group_id   = azurerm_cdn_frontdoor_origin_group.this.id
+  cdn_frontdoor_origin_ids        = [azurerm_cdn_frontdoor_origin.this.id]
   cdn_frontdoor_custom_domain_ids = [azurerm_cdn_frontdoor_custom_domain.this.id]
-  supported_protocols           = ["Http", "Https"]
-  patterns_to_match             = ["/*"]
-  forwarding_protocol           = "HttpsOnly"
-  https_redirect_enabled        = true
-  link_to_default_domain        = true
+  supported_protocols             = ["Http", "Https"]
+  patterns_to_match               = ["/*"]
+  forwarding_protocol             = "HttpsOnly"
+  https_redirect_enabled          = true
+  link_to_default_domain          = true
 }
 
 resource "azurerm_cdn_frontdoor_custom_domain" "this" {
@@ -44,7 +44,7 @@ resource "azurerm_cdn_frontdoor_custom_domain" "this" {
   host_name                = var.custom_domain
 
   tls {
-    certificate_type    = "ManagedCertificate"
-    minimum_version = "TLS12"
+    certificate_type = "ManagedCertificate"
+    minimum_version  = "TLS12"
   }
 }
