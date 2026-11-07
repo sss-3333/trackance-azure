@@ -41,3 +41,15 @@ module "front_door" {
   origin_host_name    = module.container_app.fqdn
   custom_domain       = var.custom_domain
 }
+
+data "aws_route53_zone" "this" {
+  name = "trackance.co.uk"
+}
+
+resource "aws_route53_record" "dnsauth" {
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = "_dnsauth.${var.custom_domain}"
+  type    = "TXT"
+  ttl     = 300
+  records = [module.front_door.custom_domain_validation_token]
+}
