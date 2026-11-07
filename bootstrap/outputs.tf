@@ -29,3 +29,7 @@ output "state_storage_account" {
 output "state_container" {
   value = azurerm_storage_container.tfstate.name
 }
+
+output "aws_github_role_arn" {
+  value = aws_iam_role.github_route53.arn
+}
