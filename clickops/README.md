@@ -60,3 +60,17 @@ Once validation was approved, I associated the domain with the route.
 
 ![Route 53 records](screenshots/dns-records.png)
 ![Live site / valid cert](screenshots/site-loaded-valid-cert.png)
+
+## Teardown
+
+Everything was in one resource group, so deleting the group removed it all:
+
+```bash
+az resource list --resource-group rg-trackance-clickops --output table   # check what's inside
+az group delete --name rg-trackance-clickops --yes                       # delete the group and everything in it
+az group list --output table                                             # confirm it's gone
+```
+
+I also deleted the `_dnsauth.tm` TXT and `tm` CNAME records in Route 53. Leaving the CNAME pointing at a deleted Front Door endpoint is a dangling record, which could let someone else claim the subdomain.
+
+The Front Door base fee is the main cost (around $35 a month), so it's worth deleting ASAP.
