@@ -85,3 +85,35 @@ resource "azurerm_role_assignment" "github_acr_rbac_admin" {
     )
   EOT
 }
+
+data "aws_iam_openid_connect_provider" "github" {
+  url = "https://token.actions.githubusercontent.com"
+}
+
+data "aws_iam_policy_document" "github_trust" {
+  statement {
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [data.aws_iam_openid_connect_provider.github.arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:sss-3333@120253226/trackance-azure@1435149656:ref:refs/heads/main"]
+    }
+  }
+}
+
+resource "aws_iam_role" "github_route53" {
+  name               = "trackance-azure-github-route53"
+  assume_role_policy = data.aws_iam_policy_document.github_trust.json
+}
