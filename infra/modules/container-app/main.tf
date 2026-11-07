@@ -4,6 +4,13 @@ resource "azurerm_user_assigned_identity" "this" {
   location            = var.location
 }
 
+resource "azurerm_role_assignment" "acr_pull" {
+  scope                = var.acr_id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_user_assigned_identity.this.principal_id
+  principal_type       = "ServicePrincipal"
+}
+
 resource "azurerm_container_app" "this" {
   name                         = var.name
   resource_group_name          = var.resource_group_name
@@ -14,7 +21,7 @@ resource "azurerm_container_app" "this" {
     type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.this.id]
   }
-  
+
   template {
     container {
       name   = "trackance"
