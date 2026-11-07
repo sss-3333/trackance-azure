@@ -25,3 +25,13 @@ variable "acr_id" {
 variable "acr_login_server" {
   type = string
 }
+
+variable "cpu" {
+  type    = number
+  default = 0.25
+}
+
+variable "memory" {
+  type    = string
+  default = "0.5Gi"
+}

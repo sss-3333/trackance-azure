@@ -43,8 +43,8 @@ resource "azurerm_container_app" "this" {
     container {
       name   = "trackance"
       image  = var.image
-      cpu    = 0.25
-      memory = "0.5Gi"
+      cpu    = var.cpu
+      memory = var.memory
     }
   }
 }
