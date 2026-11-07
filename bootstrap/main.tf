@@ -25,3 +25,9 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Basic"
   admin_enabled       = false
 }
+
+resource "azurerm_user_assigned_identity" "github" {
+  name                = "id-trackance-github"
+  resource_group_name = azurerm_resource_group.bootstrap.name
+  location            = azurerm_resource_group.bootstrap.location
+}
