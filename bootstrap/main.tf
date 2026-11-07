@@ -31,3 +31,11 @@ resource "azurerm_user_assigned_identity" "github" {
   resource_group_name = azurerm_resource_group.bootstrap.name
   location            = azurerm_resource_group.bootstrap.location
 }
+
+resource "azurerm_federated_identity_credential" "github_main" {
+  name                      = "github-main"
+  user_assigned_identity_id = azurerm_user_assigned_identity.github.id
+  issuer                    = "https://token.actions.githubusercontent.com"
+  audience                  = ["api://AzureADTokenExchange"]
+  subject                   = "repo:sss-3333/trackance-azure:ref:refs/heads/main"
+}
