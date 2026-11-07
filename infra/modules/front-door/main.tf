@@ -36,3 +36,14 @@ resource "azurerm_cdn_frontdoor_route" "this" {
   https_redirect_enabled        = true
   link_to_default_domain        = true
 }
+
+resource "azurerm_cdn_frontdoor_custom_domain" "this" {
+  name                     = replace(var.custom_domain, ".", "-")
+  cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.this.id
+  host_name                = var.custom_domain
+
+  tls {
+    certificate_type    = "ManagedCertificate"
+    minimum_version = "TLS12"
+  }
+}

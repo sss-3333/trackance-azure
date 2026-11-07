@@ -9,3 +9,9 @@ variable "location" {
   type        = string
   default     = "uksouth"
 }
+
+variable "custom_domain" {
+  description = "Domain users visit"
+  type        = string
+  default     = "tm.trackance.co.uk"
+}

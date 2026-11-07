@@ -33,3 +33,11 @@ module "container_app" {
   acr_login_server             = data.azurerm_container_registry.acr.login_server
   image                        = "${data.azurerm_container_registry.acr.login_server}/trackance:v1"
 }
+
+module "front_door" {
+  source              = "./modules/front-door"
+  name                = "afd-${var.project}"
+  resource_group_name = azurerm_resource_group.app.name
+  origin_host_name    = module.container_app.fqdn
+  custom_domain       = var.custom_domain
+}

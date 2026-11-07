@@ -9,3 +9,7 @@ variable "resource_group_name" {
 variable "origin_host_name" {
   type = string
 }
+
+variable "custom_domain" {
+  type = string
+}
