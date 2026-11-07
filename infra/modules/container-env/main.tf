@@ -4,4 +4,9 @@ resource "azurerm_container_app_environment" "this" {
   location                   = var.location
   logs_destination           = "log-analytics"
   log_analytics_workspace_id = var.log_analytics_workspace_id
+
+    workload_profile {
+    name                  = "Consumption"
+    workload_profile_type = "Consumption"
+  }
 }
