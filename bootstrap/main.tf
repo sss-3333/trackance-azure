@@ -48,3 +48,10 @@ resource "azurerm_role_assignment" "github_contributor" {
   principal_id         = azurerm_user_assigned_identity.github.principal_id
   principal_type       = "ServicePrincipal"
 }
+
+resource "azurerm_role_assignment" "github_acr_push" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "AcrPush"
+  principal_id         = azurerm_user_assigned_identity.github.principal_id
+  principal_type       = "ServicePrincipal"
+}
