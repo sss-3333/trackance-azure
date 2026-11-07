@@ -2,6 +2,10 @@ name: Terraform Apply
 
 on:
   workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Image tag to deploy (commit SHA from the build)"
+        required: true
 
 permissions:
   id-token: write
@@ -12,6 +16,7 @@ env:
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ARM_USE_OIDC: true
+  TF_VAR_image_tag: ${{ inputs.image_tag }}
 
 defaults:
   run:

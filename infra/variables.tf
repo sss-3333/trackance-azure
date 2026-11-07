@@ -15,3 +15,9 @@ variable "custom_domain" {
   type        = string
   default     = "tm.trackance.co.uk"
 }
+
+variable "image_tag" {
+  description = "Image tag to deploy"
+  type        = string
+  default     = "v1"
+}

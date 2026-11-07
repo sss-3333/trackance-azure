@@ -31,7 +31,7 @@ module "container_app" {
   container_app_environment_id = module.container_env.id
   acr_id                       = data.azurerm_container_registry.acr.id
   acr_login_server             = data.azurerm_container_registry.acr.login_server
-  image                        = "${data.azurerm_container_registry.acr.login_server}/trackance:v1"
+  image                        = "${data.azurerm_container_registry.acr.login_server}/trackance:${var.image_tag}"
 }
 
 module "front_door" {
