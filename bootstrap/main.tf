@@ -39,3 +39,12 @@ resource "azurerm_federated_identity_credential" "github_main" {
   audience                  = ["api://AzureADTokenExchange"]
   subject                   = "repo:sss-3333/trackance-azure:ref:refs/heads/main"
 }
+
+data "azurerm_subscription" "current" {}
+
+resource "azurerm_role_assignment" "github_contributor" {
+  scope                = data.azurerm_subscription.current.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_user_assigned_identity.github.principal_id
+  principal_type       = "ServicePrincipal"
+}
